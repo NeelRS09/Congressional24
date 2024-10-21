@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Connect</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333; 
+        }
+
+        nav a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .farms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .farm {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        header {
+            background-color: rgba(72, 139, 83, 0.8);
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        header h1 {
+            font-size: 70px;
+            color: black;
+            font-family: 'Georgia', serif;
+            text-shadow: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Fresh Farm Connect</h1>
+    </header>
+
+    <nav>
+        <a href="#" class="tab-link" data-tab="home">Home</a>
+        <a href="#" class="tab-link" data-tab="apply">Apply Now</a>
+        <a href="#" class="tab-link" data-tab="about">About</a>
+        <a href="#" class="tab-link" data-tab="featured">Featured Farms</a>
+    </nav>
+
+    <div class="container">
+        <div id="home" class="tab-content active">
+            <h2>Farms</h2>
+            <div class="farms" id="farm-list">
+            </div>
+        </div>
+
+        <div id="apply" class="tab-content">
+            <h2>Apply Now</h2>
+            <form id="farm-form">
+                <label for="name">Farm Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="description">Brief Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="produce">Main Produce/Items Sold (Comma-separated):</label>
+                <input type="text" id="produce" name="produce" required>
+
+                <label for="hours">Operating Hours (e.g., 9 a.m.-5 p.m.):</label>
+                <input type="text" id="hours" name="hours" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="about" class="tab-content">
+            <h2>About This Website</h2>
+            <p>Welcome to FreshFarm Connect! We are an agricultural service based in Richmond, Virginia. Our vision is to connect every person to fresh, organic produce. We were startled by the amount of unhealthy produce filled with harmful chemicals. Millions of people eat these products every day and hurt their bodies. We also want to revive and maintain the connection between the producers and consumers.
+            </p>
+        </div>
+
+        <div id="featured" class="tab-content">
+            <h2>Featured Farms</h2>
+            <div id="featured-farm" class="farm"></div>
+        </div>
+    </div>
+
+    <footer>
+        2024 Farm Showcase
+    </footer>
+
+    <script>
+        const farms = [
+            { name: "Green Valley Farm", address: "123 Farm Lane, Countryside", description: "A family-owned farm specializing in organic crops.", produce: "Tomatoes, Lettuce, Peppers, Carrots", hours: "8 a.m.-6 p.m." },
+            { name: "Sunshine Orchards", address: "45 Orchard Rd, Sunnyside", description: "We grow a variety of seasonal fruits and herbs.", produce: "Apples, Peaches, Grapes", hours: "9 a.m.-5 p.m." },
+            { name: "Riverbend Farm", address: "78 River Road, Green Valley", description: "A small farm offering fresh produce and dairy.", produce: "Cheese, Milk, Kale", hours: "7 a.m.-3 p.m." },
+        ];
+
+        function displayFarms() {
+            const farmList = document.getElementById('farm-list');
+            farmList.innerHTML = '';
+            farms.forEach(farm => {
+                const farmDiv = document.createElement('div');
+                farmDiv.classList.add('farm');
+                farmDiv.innerHTML = `
+                    <h3>${farm.name}</h3>
+                    <p><strong>Address:</strong> ${farm.address}</p>
+                    <p>${farm.description}</p>
+                    <p><strong>Produce:</strong> ${farm.produce}</p>
+                    <p><strong>Hours:</strong> ${farm.hours}</p>
+                `;
+                farmList.appendChild(farmDiv);
+            });
+        }
+
+        function displayFeaturedFarm() {
+            const randomIndex = Math.floor(Math.random() * farms.length);
+            const featuredFarm = farms[randomIndex];
+            const featuredFarmDiv = document.getElementById('featured-farm');
+            featuredFarmDiv.innerHTML = `
+                <h3>${featuredFarm.name}</h3>
+                <p><strong>Address:</strong> ${featuredFarm.address}</p>
+                <p>${featuredFarm.description}</p>
+                <p><strong>Produce:</strong> ${featuredFarm.produce}</p>
+                <p><strong>Hours:</strong> ${featuredFarm.hours}</p>
+            `;
+        }
+
+        const tabs = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetTab = tab.getAttribute('data-tab');
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        const form = document.getElementById('farm-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const newFarm = {
+                name: form.name.value,
+                address: form.address.value,
+                phone: form.phone.value,
+                email: form.email.value,
+                description: form.description.value,
+                produce: form.produce.value,
+                hours: form.hours.value,
+            };
+
+            farms.push(newFarm);
+            displayFarms();
+
+            // Reset form
+            form.reset();
+            
+            document.getElementById('apply').classList.remove('active');
+            document.getElementById('home').classList.add('active');
+        });
+
+        displayFarms();
+        displayFeaturedFarm();
+    </script>
+</body>
+</html>
